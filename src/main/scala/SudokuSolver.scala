@@ -1,3 +1,5 @@
+package sudoku
+
 /**
  * Solves a Sudoku grid.
  *
