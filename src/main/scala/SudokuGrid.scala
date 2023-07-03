@@ -1,3 +1,5 @@
+package sudoku
+
 /**
   * Represents a Sudoku grid.
   *
