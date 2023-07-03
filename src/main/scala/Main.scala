@@ -54,10 +54,24 @@ object Main extends ZIOAppDefault {
 
     } yield ()
 
+  /**
+    * Use the Source method to read a file from the path
+    * 
+    * @param path
+    * @return String
+    */
   def readFile(path: String): String =
     Source.fromFile(path).getLines.mkString
   
 
+  /**
+    * Check if the grid is validing according to 2 constraints :
+      Cells is an array of 9 arrays
+      Each of these 9 arrays is also an array of 9
+    * 
+    * @param jsonEither
+    * @return `true` if the grid is valid, `false` otherwise
+    */
   def verifyJson(jsonEither: Either[String, SudokuGrid]): Boolean =
     jsonEither match {
       case Right(sudokuGrid) =>
@@ -65,6 +79,12 @@ object Main extends ZIOAppDefault {
       case _ => false
     }
 
+  /**
+    * Use the readFile method to read the file and then parse it in order to deserialized it
+    *
+    * @param path
+    * @return IO[Throwable, SudokuGrid]
+    */
   def readAndParseJson(path: String): IO[Throwable, SudokuGrid] =
     val jsonFile = readFile(path)
     val grid: Either[String, SudokuGrid] = jsonFile.fromJson[SudokuGrid]
